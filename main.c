@@ -1,6 +1,7 @@
 #include <libc.h>
+#include "ft_printf.h"
 
-int		main(int argc, char **argv)
+int		main()
 {
-	printf("adsfadsf% asdfsad");
+	ft_printf("j'ai %d grammes de %s dans la poche !", 12, "cocaine");
 }

@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/11/24 17:02:04 by conoel           ###   ########.fr       */
+/*   Created: 2018/11/24 16:04:50 by conoel            #+#    #+#             */
+/*   Updated: 2018/11/24 17:37:12 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-# include <unistd.h>
-# include <stdarg.h>
-# include <string.h>
-# include <stdlib.h>
-# include "libft/libft.h"
+size_t		ft_strcat2(char	*s1, char *s2)
+{
+	size_t	size;
 
-# define BUFF 1048
-
-#endif
-
-size_t	ft_strcat2(char *s1, char *s2);
-char	*get_right_function(const char *str, va_list ap);
-int		ft_printf(const char *restrict str, ...);
-//int		get_argc(char*str);
+	size = 0;
+	while (*s1)
+		s1++;
+	while (*s1)
+	{
+		*s1 = *s2;
+		s1++;
+		s2++;
+		size++;
+	}
+	*s1 = '\0';
+	return (size);
+}
