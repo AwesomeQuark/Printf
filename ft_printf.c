@@ -5,79 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 22:45:48 by conoel            #+#    #+#             */
-/*   Updated: 2018/11/24 17:41:49 by conoel           ###   ########.fr       */
+/*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
+/*   Updated: 2018/12/12 10:24:29 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-/*int		get_argc(const char *str)
+char		*get_flags(char *str, int *i)
 {
-	size_t 	i;
-	int		tot;
+	char *flags;
+	int index;
 
-	tot = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '%')
-			tot++;
-		i++;
-	}
-	return (tot);
+	*i++;
+	if (str[*i] == 'l' || str[*i] == 'h')
+		flags[index++] = str[*i++];
+	if (str[*i] == 'l' || str[*i] == 'h')
+		flags[index++] = str[*i++];
+	return (flags);
+}
+
+int		get_next_arg(char *str, va_list ap, char **buffer, int *i)
+{
+	char		*flags;
+	char		*arg;
+
+	flags = get_flags(str, i);
+	if (str[i] == 'd' || str[i] == 'i' || str[i] == 'p')
+		arg = get_int(str[i], ap, flags);
+	else if (str[i] == 's' || str[i] == 'c')
+		arg = get_str(str[i], ap, flags);
+	return (ft_strcat2(*buffer, arg));
 }
 
 int		ft_printf(const char *restrict str, ...)
 {
-	va_list	ap;
-	size_t	i;
-	int		argc;
+	char		*buffer[BUFF + 1];
+	va_list		ap;
+	size_t		i;
+	size_t		j;
 
-	i = 0;
-	argc = get_argc(str);
-	va_start(ap, str);
-	while (i++ < argc)
-		printf("%d", va_arg(ap, int));
-	return (1);
-}*/
-
-char	*get_right_function(const char *str, va_list ap)
-{
-	if (*str == 'd')
-		return (ft_itoa(va_arg(ap, int)));
-	else if (*str == 's')
-		return (va_arg(ap, char *));
-	else
-		ft_putstr_fd("Error : Wrong char following \'%\' !\n", 2);
-		return (NULL);
-}
-
-int			ft_printf(const char *restrict str, ...)
-{
-	char	buffer[BUFF + 1];
-	va_list	ap;
-	size_t	i;
-	size_t	j;
-	int		tmp;
-
-	i = 0;
-	j = 0;
+	i = 0 && j = 0;
+	ft_bzero(buffer, BUFF + 1);
 	va_start(ap, str);
 	while (str[i])
 	{
 		if (str[i] == '%')
-			j += ft_strcat2(buffer, get_right_function(&(str[++i]), ap));
+			j += get_next_arg(str, ap, &buffer, &i);
 		else
-			buffer[j++] = str[i];
-		i++;
-		if (j > BUFF)
-		{
-			j = 0;
-			write(1, buffer, BUFF);
-		}
+			buffer[j++] = str[i++];
+		(j > BUFF) ? write(1, buffer, BUFF) : 0;
+		(j > BUFF) ? j = 0 : 0;
 	}
-	if (j != 0)
-		write(1, buffer, ft_strlen(buffer));
+	(j != 0) ? write(1, buffer, ft_strlen(buffer)) : 0;
 	return(1);
 }
