@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:40:39 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/16 16:17:25 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:50:46 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		ft_atoi(char *s, t_flag *all)
 {
-	unsigned int total;
-	int signe;
+	unsigned int	total;
+	int				signe;
 
 	total = 0;
 	I = (s[I] == '.') ? I + 1 : I;

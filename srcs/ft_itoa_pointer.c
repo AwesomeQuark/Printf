@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 19:23:13 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/16 18:17:55 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:41:06 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ static size_t	ft_size(size_t nb)
 	return (ret);
 }
 
-static char		ft_char(int c)
-{
-	char str[16] = "0123456789abcdef";
-	return (str[c]);
-}
-
 char			*ft_itoa_pointer(size_t nb)
 {
 	char	*end;
@@ -44,7 +38,10 @@ char			*ft_itoa_pointer(size_t nb)
 		end[0] = 48;
 	while (nb > 0)
 	{
-		end[--size] = ft_char(nb % 16);
+		if (nb % 16 <= 9)
+			end[--size] = nb % 16 + '0';
+		else
+			end[--size] = nb % 16 + 'a' - 10;
 		nb /= 16;
 	}
 	return (end);

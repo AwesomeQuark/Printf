@@ -6,54 +6,49 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 12:34:16 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/18 12:13:36 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:52:30 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int		ft_size(long number, int power, int precision, int *size)
+static char			*ft_insertdot(char *str, int prec)
 {
-	int save;
+	size_t		index;
+	char		tmp;
+	char		tmp2;
 
-	save = number;
-	while (number > 0)
+	index = ft_strlen(str) - prec;
+	tmp = str[index];
+	str[index] = '.';
+	while (--prec)
 	{
-		number /= 10;
-		*size += 1;
+		tmp2 = str[++index];
+		str[index] = tmp;
+		tmp = str[++index];
+		str[index] = tmp2;
 	}
-	if ((power + 1) < *size)
-		*size += 1;
-	if (precision < *size - (power + 1))
-	{
-		*size = precision + (power + 1) + 1;
-		while (*size - (power++ + 1) > precision)
-			save = save / 10;
-		return (save);
-	}
-	*size += 1;
-	return (save);
+	str[ft_strlen(str) - 1] = '\0';
+	return (str);
 }
 
-char			*ft_ftoa(double n, int p)
+static long long	ft_pow(long double num, int pow)
 {
-	long long	number;
-	int		power;
-	int		size;
-	char	*end;
+	while (pow-- > 0)
+		num *= 10;
+	return ((long long)num);
+}
 
-	number = (long)n >> 52;
-	power = (long)n >> 11;
-	number = ft_size(number, power, p, &size);
-	printf("%lld %d %f\n", number, power, n);
-	if (!(end = malloc(sizeof end * size)))
-		return (NULL);
-	while (number > 0)
-	{
-		end[--size] = (number % 10) + '0';
-		number /= 10;
-		if (size == power + 2)
-			end[--size] = '.';
-	}
+char				*ft_ftoa(long double num, int prec)
+{
+	long long	nb;
+	char		*end;
+
+	prec = prec < 0 ? 7 : prec + 1;
+	nb = ft_pow(num, prec);
+	if (nb % 10 >= 5)
+		nb += 10;
+	end = ft_itoa_base_signed(nb, 10, 0);
+	ft_insertdot(end, prec);
 	return (end);
 }

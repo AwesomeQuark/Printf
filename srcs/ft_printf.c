@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/17 12:28:46 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:55:24 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,34 +26,50 @@ static void	init(t_flag *all, int start)
 	all->precision = -1;
 	all->minsize = 0;
 	all->minus = 0;
-	all->L = 0;
+	all->l = 0;
+	all->space = 0;
+	all->hash = 0;
+	all->plus = 0;
+	all->zero = 0;
+}
+
+static int	if_norme(char s, int type)
+{
+	if (type == 1)
+	{
+		if ((s >= '0' && s <= '9') || s == 'd' || s == 'i' || s == 'o' ||
+	s == 'u' || s == 'x' || s == 'X' || s == 'c' || s == 's' || s == 'p' ||
+	s == 'l' || s == 'h' || s == 'f' || s == '%' || s == '.' || s == '-' ||
+	s == ' ' || s == '+' || s == '#')
+			return (1);
+	}
+	if (type == 2)
+	{
+		if (s == 'd' || s == 'i' || s == 'o' || s == 'u' || s == 'x' ||
+		s == 'X' || s == 'c' || s == 's' || s == 'p' || s == 'f' || s == '%')
+			return (1);
+	}
+	return (0);
 }
 
 static void	parse_flags(t_flag *all, char *str)
 {
-	while (((str[I] >= '0' && str[I] <= '9') || str[I] == 'd' ||
-str[I] == 'i' || str[I] == 'o' || str[I] == 'u' || str[I] == 'x' ||
-str[I] == 'X' || str[I] == 'c' || str[I] == 's' || str[I] == 'p' ||
-str[I] == 'l' || str[I] == 'h' || str[I] == 'f' || str[I] == '%' ||
-str[I] == '.' || str[I] == '-') && all->type == 0)
+	while (if_norme(str[I], 1) && all->type == 0)
 	{
 		I++;
-		if (str[I] == 'd' || str[I] == 'i' || str[I] == 'o' || str[I] == 'u' ||
-str[I] == 'x' || str[I] == 'X' || str[I] == 'c' || str[I] == 's' ||
-str[I] == 'p' || str[I] == 'f' || str[I] == '%')
-			all->type = str[I];
-		else if (str[I] == 'l')
+		if_norme(str[I], 2) ? all->type = str[I] : 0;
+		if (str[I] == 'l')
 			all->intflags = all->intflags == 0 ? 1 : 2;
-		else if (str[I] == 'h')
+		if (str[I] == 'h')
 			all->intflags = all->intflags == 0 ? 3 : 4;
-		else if (str[I] == 'L')
-			all->L = 1;
-		else if (str[I] == '.')
-			all->precision = ft_atoi(str, all);
-		else if ((str[I] >= '0' && str[I] <= '9'))
-			all->minsize = ft_atoi(str, all);
-		else if (str[I] == '-')
-			all->minus = 1;
+		str[I] == 'L' ? all->l = 1 : 0;
+		str[I] == '0' && str[I - 1] != '-' ? all->zero = 1 : 0;
+		str[I] == '-' ? all->minus = 1 : 0;
+		str[I] == '+' ? all->plus = 2 : 0;
+		str[I] == ' ' ? all->space = 1 : 0;
+		str[I] == '#' ? all->hash = 1 : 0;
+		str[I] >= '1' && str[I] <= '9' ? all->minsize = ft_atoi(str, all) : 0;
+		str[I] == '.' ? all->precision = ft_atoi(str, all) : 0;
 	}
 }
 
@@ -61,15 +77,17 @@ static int	get_next_arg(t_flag *all, char *str)
 {
 	init(all, 0);
 	parse_flags(all, str);
-	all->type == 'd' || all->type == 'i' || all->type == 'u' ? get_int(all) : 0;
-	all->type == 'o' || all->type == 'x' || all->type == 'X' ? get_int_base(all) : 0;
-	all->type == 'c' ? get_char(all) : 0;
+	all->type == 'd' || all->type == 'i' ? get_int(all) : 0;
+	all->type == 'o' || all->type == 'x' || all->type == 'X' || all->type == 'u'
+			? get_int_base(all) : 0;
+	if (all->type == 'c')
+		all->buffer[all->buffer_index++] = (char)va_arg(all->ap, int);
 	all->type == 'p' ? get_pointer(all) : 0;
-	all->type == 's' ? get_string(all) : 0;
+	all->type == 's' ? ft_str_flags(va_arg(all->ap, char *), all) : 0;
 	all->type == 'f' ? get_float(all) : 0;
 	all->type == '%' ? get_pourcent(all) : 0;
 	all->type == 0 ? I -= 1 : 0;
-	return(0);
+	return (0);
 }
 
 int			ft_printf(const char *str, ...)

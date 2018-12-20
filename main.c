@@ -13,9 +13,9 @@ static void	test(int (*f)(const char *str, ...))
 	f("Integers base : %o (octal) %x(hexamin) %X(hexamaj)\n", nb[0], nb[0], nb[0], nb[0]);
 	f("Integers flags : %ld (l) %lld (ll) %hd (h) %hhd (hh)\n", 666, 666, 666, 665);
 	f("Trying to print char A : %c\n", 65);
-	f("Pourcent : %% with flags : %25%\n");
-	f("Float : %f with precision : %f\n", 45.25, 88.54);
-	f("Custom %Zoooo\n", "oui");
+	f("Pourcent : %% with flags : %02%\n");
+	f("Float : %.f with precision : %.5f\n", 45.25666666, 88.5);
+	//f("@moulitest: %.0x %5.0xa\n", 0, 0);
 }
 
 int		main()

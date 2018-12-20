@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_base_unsigned.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/10 16:34:59 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/16 18:14:52 by conoel           ###   ########.fr       */
+/*   Created: 2018/12/12 19:54:22 by conoel            #+#    #+#             */
+/*   Updated: 2018/12/20 13:46:49 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static size_t	ft_size(int nb, int c)
+static size_t	ft_size(unsigned long long nb, int c)
 {
 	size_t ret;
 
 	ret = 0;
-	if (nb < 0)
-	{
+	if (nb == 0)
 		ret++;
-		nb = nb * -1;
-	}
 	while (nb > 0)
 	{
 		ret++;
@@ -30,39 +27,23 @@ static size_t	ft_size(int nb, int c)
 	return (ret);
 }
 
-static char		ft_char(int c)
-{
-	char str[16] = "0123456789abcdef";
-	return (str[c]);
-}
-
-static char		ft_charmaj(int c)
-{
-	char str[16] = "0123456789ABCDEF";
-	return (str[c]);
-}
-
-char			*ft_itoa_base(int nb, int c, int maj)
+char			*ft_itoa_base_unsigned(unsigned long long nb, int c, int maj)
 {
 	char	*end;
 	size_t	size;
 
-	if (nb == -2147483648)
-		return(ft_strdup("-2147483648"));
 	size = ft_size(nb, c);
 	end = malloc(sizeof(*end) * (size + 1));
 	nb == 0 ? end[0] = '0' : 0;
 	end[size] = '\0';
-	if (nb < 0)
-	{
-		end[0] = '-';
-		nb = nb * -1;
-	}
 	if (nb == 0)
-		end[0] = 48;
+		end[0] = '0';
 	while (nb > 0)
 	{
-		end[--size] = maj ? ft_charmaj(nb % c) : ft_char(nb % c);
+		if (nb % c <= 9)
+			end[--size] = nb % c + '0';
+		else
+			end[--size] = nb % c + (maj == 1 ? 'A' : 'a') - 10;
 		nb /= c;
 	}
 	return (end);

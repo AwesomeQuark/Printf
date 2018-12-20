@@ -6,13 +6,13 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:32:43 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/15 20:50:51 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 13:34:17 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-size_t			ft_strcat2(char	*buffer, char *arg)
+size_t			ft_strcat2(char *buffer, char *arg)
 {
 	size_t	size;
 
