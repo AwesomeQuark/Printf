@@ -6,27 +6,23 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:32:43 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:34:17 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:44:53 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-size_t			ft_strcat2(char *buffer, char *arg)
+void	ft_strcat2(char *buffer, char *arg, t_flag *all)
 {
-	size_t	size;
-
 	if (arg == NULL || buffer == NULL)
-		return (0);
-	size = 0;
+		return ;
 	while (*buffer)
 		buffer++;
 	*buffer = *arg;
 	while (*arg)
 	{
 		*buffer++ = *arg++;
-		size++;
+		all->buffer_index++;
 	}
 	*buffer = '\0';
-	return (size);
 }

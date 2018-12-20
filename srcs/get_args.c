@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:33:40 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:44:26 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	get_pointer(t_flag *all)
 	char	*ret;
 
 	ret = ft_itoa_pointer((size_t)va_arg(all->ap, void *));
-	all->buffer_index += ft_strcat2(all->buffer, "0x");
-	all->buffer_index += ft_strcat2(all->buffer, ret);
+	ft_strcat2(all->buffer, "0x", all);
+	ft_strcat2(all->buffer, ret, all);
 	if (ret)
 		free(ret);
 }
@@ -95,7 +95,10 @@ void	get_float(t_flag *all)
 {
 	char *nb;
 
-	nb = ft_ftoa(va_arg(all->ap, double), all->precision);
-	all->buffer_index += ft_strcat2(all->buffer, nb);
+	if (all->l == 1)
+		nb = ft_ftoa(va_arg(all->ap, long double), all->precision);
+	else
+		nb = ft_ftoa(va_arg(all->ap, double), all->precision);
+	ft_strcat2(all->buffer, nb, all);
 	free(nb);
 }

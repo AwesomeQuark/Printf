@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:58:40 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:44:43 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ char			*ft_ftoa(long double num, int prec);
 char			*ft_itoa_base_unsigned(unsigned long long nb, int c, int maj);
 char			*ft_itoa_base_signed(long long nb, int c, int maj);
 char			*ft_itoa_pointer(size_t nb);
-size_t			ft_strcat2(char *s1, char *s2);
+void			ft_strcat2(char *s1, char *s2, t_flag *all);
 
 void			ft_int_flags(char *ret, t_flag *all);
 void			ft_str_flags(char *ret, t_flag *all);
+void			ft_char_flags(char ret, t_flag *all);
 
 void			get_int(t_flag *flags);
 void			get_int_base(t_flag *flags);

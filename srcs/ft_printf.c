@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:55:24 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 17:52:10 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	if_norme(char s, int type)
 		if ((s >= '0' && s <= '9') || s == 'd' || s == 'i' || s == 'o' ||
 	s == 'u' || s == 'x' || s == 'X' || s == 'c' || s == 's' || s == 'p' ||
 	s == 'l' || s == 'h' || s == 'f' || s == '%' || s == '.' || s == '-' ||
-	s == ' ' || s == '+' || s == '#')
+	s == ' ' || s == '+' || s == '#' || s == 'L')
 			return (1);
 	}
 	if (type == 2)
@@ -80,8 +80,7 @@ static int	get_next_arg(t_flag *all, char *str)
 	all->type == 'd' || all->type == 'i' ? get_int(all) : 0;
 	all->type == 'o' || all->type == 'x' || all->type == 'X' || all->type == 'u'
 			? get_int_base(all) : 0;
-	if (all->type == 'c')
-		all->buffer[all->buffer_index++] = (char)va_arg(all->ap, int);
+	all->type == 'c' ? ft_char_flags((char)va_arg(all->ap, int), all) : 0;
 	all->type == 'p' ? get_pointer(all) : 0;
 	all->type == 's' ? ft_str_flags(va_arg(all->ap, char *), all) : 0;
 	all->type == 'f' ? get_float(all) : 0;

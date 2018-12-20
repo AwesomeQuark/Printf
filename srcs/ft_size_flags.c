@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 19:54:40 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:37:08 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/20 18:43:48 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	printer(char *ret, t_flag *all)
 {
-	if (((all->space == 1 || all->plus == 1) && all->type != 'u')
-			&& ret[0] != '-')
-		all->buffer[all->buffer_index++] = all->plus == 1 ? '+' : ' ';
+	if (all->plus != 0 && all->type != 'u' && ret[0] != '-')
+		all->buffer[all->buffer_index++] = '+';
+	else if (all->space != 0 && all->type != 'u' && ret[0] != '-')
+		all->buffer[all->buffer_index++] = ' ';
 	if (all->hash == 1 && (all->type == 'x' || all->type == 'X') &&
 			(ret[0] != 0 && ft_strlen(ret) != 1) && all->zero == 0)
-		all->buffer_index += ft_strcat2(all->buffer, all->type == 'x' ?
-				"0x" : "0X");
-	all->buffer_index += ft_strcat2(all->buffer, ret);
+		ft_strcat2(all->buffer, all->type == 'x' ? "0x" : "0X", all);
+	ft_strcat2(all->buffer, ret, all);
 }
 
 void		ft_int_flags(char *ret, t_flag *all)
@@ -32,8 +32,7 @@ void		ft_int_flags(char *ret, t_flag *all)
 	all->hash == 1 ? all->minsize -= 2 : 0;
 	if (all->hash == 1 && (all->type == 'x' || all->type == 'X') && (ret[0] != 0
 			&& ft_strlen(ret) != 1) && all->zero == 1)
-		all->buffer_index += ft_strcat2(all->buffer, all->type == 'x' ?
-				"0x" : "0X");
+		ft_strcat2(all->buffer, all->type == 'x' ? "0x" : "0X", all);
 	if (all->minus == 1)
 		printer(ret, all);
 	while (all->precision > size)
@@ -57,17 +56,37 @@ void		ft_str_flags(char *ret, t_flag *all)
 	i = 0;
 	if (ret == NULL)
 	{
-		all->buffer_index += ft_strcat2(all->buffer, "(null)");
+		ft_strcat2(all->buffer, "(null)", all);
 		return ;
 	}
 	while ((int)ft_strlen(ret) < all->minsize && all->minus == 0)
 	{
-		all->buffer[all->buffer_index++] = ' ';
+		all->buffer[all->buffer_index++] = all->zero == 1 ? '0' : ' ';
 		all->minsize--;
 	}
+	all->plus == 1 ? all->buffer[all->buffer_index++] = '+' : 0;
 	while (i < (all->precision == -1 ? (int)ft_strlen(ret) : all->precision))
 		all->buffer[all->buffer_index++] = ret[i++];
 	while ((int)ft_strlen(ret) < all->minsize && all->minus == 1)
+	{
+		all->buffer[all->buffer_index++] = ' ';
+		all->minsize--;
+	}
+}
+
+void		ft_char_flags(char  ret, t_flag *all)
+{
+	int i;
+
+	i = 0;
+	while (1 < all->minsize && all->minus == 0)
+	{
+		all->buffer[all->buffer_index++] = all->zero == 1 ? '0' : ' ';
+		all->minsize--;
+	}
+	all->plus == 1 ? all->buffer[all->buffer_index++] = '+' : 0;
+	all->buffer[all->buffer_index++] = ret;
+	while (1 < all->minsize && all->minus == 1)
 	{
 		all->buffer[all->buffer_index++] = ' ';
 		all->minsize--;
