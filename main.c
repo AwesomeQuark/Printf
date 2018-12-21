@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:44:12 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 18:34:12 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 14:14:09 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,12 @@ static void	test(int (*f)(const char *str, ...))
 		nb[0], nb[0]);
 	f("Integers flags : %ld (l) %lld (ll) %hd (h) %hhd (hh)\n", 666, 666, 666,
 		665);
-	f("Trying to print char A : %025c\n", 42);
+	f("Trying to print char A : %c\n", 0);
 	f("Pourcent : %% with flags : %02%\n");
 	f("Float : %lf with precision : %.5f\n", 45.25666666, 88.5);
-	f("zero integers : %lld %hh0.5xe", 0, 0);
+	f("zero integers : %.0x %.2x\n", 0, 0);
+	f(" %-5.2s empty string bitch\n", "test");
+	f("Octal : %-10.5o", 45);
 }
 
 int			main(void)

@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 17:52:10 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 13:49:45 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			ft_printf(const char *str, ...)
 			all.buffer[all.buffer_index++] = str[all.str_index];
 		all.str_index++;
 	}
-	(all.buffer_index != 0) ? write(1, all.buffer, ft_strlen(all.buffer)) : 0;
+	(all.buffer_index != 0) ? write(1, all.buffer, all.buffer_index) : 0;
 	va_end(all.ap);
 	return (all.buffer_index);
 }
