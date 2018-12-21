@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:32:43 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 11:56:13 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:02:44 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ void	ft_strcat2(char *buffer, char *arg, t_flag *all)
 	i = 1;
 	if (arg == NULL || buffer == NULL)
 		return ;
-	while (*buffer)
-		buffer++;
+	all->buffer_index++;
 	while (*arg)
-	{
-		*buffer++ = *arg++;
-		all->buffer_index++;
-	}
+		buffer[all->buffer_index++] = *arg++;
 	*buffer = '\0';
 }

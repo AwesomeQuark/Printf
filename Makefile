@@ -6,7 +6,7 @@
 #    By: conoel <conoel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:31:30 by conoel            #+#    #+#              #
-#    Updated: 2018/12/21 12:42:34 by conoel           ###   ########.fr        #
+#    Updated: 2018/12/21 18:16:14 by conoel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = libftprintf.a
 HEADER = ./includes/ft_printf.h
 
 SRC_NAME = ft_printf.c get_args.c ft_size_flags.c\
-ft_itoa_pointer.c ft_itoa_float.c ft_itoa_base_unsigned.c ft_itoa_base_signed.c\
+ft_itoa_float.c ft_itoa_base_unsigned.c ft_itoa_base_signed.c\
 ft_bzero.c ft_itoa.c ft_strcmp.c ft_strlen.c ft_strcat2.c  ft_memset.c ft_strdup.c\
 ft_atoi.c\
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 		@echo "Created Lib file ($(NAME)) !"
 
 ./obj/%.o: ./srcs/%.c
-		@gcc -O3 -Wall -Wextra -Werror -c $< -o $@ -I$(HEADER)
+		@gcc -O3 -c $< -o $@ -I$(HEADER)
 
 clean:
 		@rm -rf ./obj/*.o

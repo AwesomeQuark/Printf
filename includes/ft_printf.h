@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 18:44:43 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:16:56 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # define BUFF 2048
 # define I all->str_index
+# define ULL unsigned long long
 
 /*
 **	Concernant le "intflags"
@@ -58,14 +59,11 @@ size_t			ft_strlen(const char *s);
 char			*ft_itoa(int n);
 int				ft_atoi(char *s, t_flag *all);
 
-char			*ft_ftoa(long double num, int prec);
-char			*ft_itoa_base_unsigned(unsigned long long nb, int c, int maj);
-char			*ft_itoa_base_signed(long long nb, int c, int maj);
-char			*ft_itoa_pointer(size_t nb);
+char			*ft_ftoa(long double num, t_flag *all);
+char			*ft_itoabu(unsigned long long nb, t_flag *all);
+char			*ft_itoa_base_signed(long long nb, t_flag *all);
 void			ft_strcat2(char *s1, char *s2, t_flag *all);
 
-void			ft_int_flags(char *ret, t_flag *all);
-void			ft_str_flags(char *ret, t_flag *all);
 void			ft_char_flags(char ret, t_flag *all);
 
 void			get_int(t_flag *flags);

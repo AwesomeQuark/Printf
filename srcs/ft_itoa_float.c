@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 12:34:16 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 17:32:47 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:17:46 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static long long	ft_pow(long double num, int pow)
 	return ((long long)num);
 }
 
-char				*ft_ftoa(long double num, int prec)
+char				*ft_ftoa(long double num, t_flag *all)
 {
 	long long	nb;
 	char		*end;
 
-	prec = prec < 0 ? 7 : prec + 1;
-	nb = ft_pow(num, prec);
+	all->precision = all->precision < 0 ? 7 : all->precision + 1;
+	nb = ft_pow(num, all->precision);
 	if (nb % 10 >= 5)
 		nb += 10;
-	end = ft_itoa_base_signed(nb, 10, 0);
-	ft_insertdot(end, prec);
+	end = ft_itoa_base_signed(nb, all);
+	ft_insertdot(end, all->precision);
 	return (end);
 }

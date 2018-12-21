@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 13:49:45 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 17:31:59 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	get_next_arg(t_flag *all, char *str)
 			? get_int_base(all) : 0;
 	all->type == 'c' ? ft_char_flags((char)va_arg(all->ap, int), all) : 0;
 	all->type == 'p' ? get_pointer(all) : 0;
-	all->type == 's' ? ft_str_flags(va_arg(all->ap, char *), all) : 0;
+	//all->type == 's' ? ft_str_flags(va_arg(all->ap, char *), all) : 0;
 	all->type == 'f' ? get_float(all) : 0;
 	all->type == '%' ? get_pourcent(all) : 0;
 	all->type == 0 ? I -= 1 : 0;

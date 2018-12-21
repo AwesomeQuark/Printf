@@ -6,13 +6,13 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 16:34:59 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 13:52:52 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:22:16 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static size_t	ft_size(long long nb, int c)
+static size_t	ft_size(long long nb, int prec)
 {
 	size_t ret;
 
@@ -24,22 +24,23 @@ static size_t	ft_size(long long nb, int c)
 	}
 	if (nb == 0)
 		ret++;
-	while (nb > 0)
+	while (nb > 0 || prec > 0)
 	{
 		ret++;
-		nb /= c;
+		nb /= 10;
+		prec--;
 	}
 	return (ret);
 }
 
-char			*ft_itoa_base_signed(long long nb, int c, int maj)
+char			*ft_itoa_base_signed(long long nb, t_flag *all)
 {
 	char	*end;
 	size_t	size;
 
 	if (nb == -2147483648)
 		return (ft_strdup("-2147483648"));
-	size = ft_size(nb, c);
+	size = ft_size(nb, all->precision);
 	end = malloc(sizeof(*end) * (size + 1));
 	nb == 0 ? end[0] = '0' : 0;
 	end[size] = '\0';
@@ -48,15 +49,12 @@ char			*ft_itoa_base_signed(long long nb, int c, int maj)
 		end[0] = '-';
 		nb = nb * -1;
 	}
-	if (nb == 0)
-		end[0] = 48;
-	while (nb > 0)
+	nb == 0 ? end[0] = 48 : 0;
+	while (nb > 0 || all->precision > 0)
 	{
-		if (nb % c <= 9)
-			end[--size] = nb % c + '0';
-		else
-			end[--size] = nb % c + (maj == 1 ? 'A' : 'a') - 10;
-		nb /= c;
+		end[--size] = nb % 10 + '0';
+		nb /= 10;
+		all->precision--;
 	}
 	return (end);
 }

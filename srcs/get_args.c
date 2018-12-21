@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/20 18:44:26 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 18:17:10 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,74 @@
 
 void	get_int_base(t_flag *all)
 {
-	int		base;
-	int		maj;
 	char	*ret;
+	int		size;
 
-	maj = (all->type == 'X') ? 1 : 0;
-	base = (all->type == 'x' || all->type == 'X') ? 16 : 8;
-	base = all->type == 'u' ? 10 : base;
 	if (all->intflags == 1)
-		ret = ft_itoa_base_unsigned((unsigned long)va_arg(all->ap,
-				unsigned long), base, maj);
+		ret = ft_itoabu((unsigned long)va_arg(all->ap, unsigned long), all);
 	else if (all->intflags == 2)
-		ret = ft_itoa_base_unsigned((unsigned long long)va_arg(all->ap,
-				unsigned long long), base, maj);
+		ret = ft_itoabu((unsigned long long)va_arg(all->ap, ULL), all);
 	else if (all->intflags == 3)
-		ret = ft_itoa_base_unsigned((unsigned short)va_arg(all->ap,
-				unsigned int), base, maj);
+		ret = ft_itoabu((unsigned short)va_arg(all->ap, unsigned int), all);
 	else if (all->intflags == 4)
-		ret = ft_itoa_base_unsigned((unsigned char)va_arg(all->ap,
-				unsigned int), base, maj);
+		ret = ft_itoabu((unsigned char)va_arg(all->ap, unsigned int), all);
 	else
-		ret = ft_itoa_base_unsigned(va_arg(all->ap, unsigned int), base, maj);
-	ft_int_flags(ret, all);
-	if (ret)
-		free(ret);
+		ret = ft_itoabu(va_arg(all->ap, unsigned int), all);
+	size = ft_strlen(ret);
+	while (all->minus == 0 && all->minsize > size++)
+		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
+	while (*ret)
+		all->buffer[all->buffer_index++] = *ret++;
+	size--;
+	while (all->minus == 1 && all->minsize > size++)
+		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
 }
 
 void	get_int(t_flag *all)
 {
 	char	*ret;
+	int		size;
 
 	if (all->intflags == 1)
-		ret = ft_itoa_base_signed((long)va_arg(all->ap, long), 10, 0);
+		ret = ft_itoa_base_signed((long)va_arg(all->ap, long), all);
 	else if (all->intflags == 2)
-		ret = ft_itoa_base_signed((long long)va_arg(all->ap, long long), 10, 0);
+		ret = ft_itoa_base_signed((long long)va_arg(all->ap, long long), all);
 	else if (all->intflags == 3)
-		ret = ft_itoa_base_signed((short)va_arg(all->ap, unsigned int), 10, 0);
+		ret = ft_itoa_base_signed((short)va_arg(all->ap, unsigned int), all);
 	else if (all->intflags == 4)
-		ret = ft_itoa_base_signed((char)va_arg(all->ap, unsigned int), 10, 0);
+		ret = ft_itoa_base_signed((char)va_arg(all->ap, unsigned int), all);
 	else
-		ret = ft_itoa_base_signed((int)va_arg(all->ap, unsigned int), 10, 0);
-	ft_int_flags(ret, all);
-	if (ret)
-		free(ret);
+		ret = ft_itoa_base_signed((int)va_arg(all->ap, unsigned int), all);
+	size = ft_strlen(ret);
+	while (all->minus == 0 && all->minsize > size++)
+		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
+	while (*ret)
+		all->buffer[all->buffer_index++] = *ret++;
+	size--;
+	while (all->minus == 1 && all->minsize > size++)
+		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
 }
 
 void	get_pointer(t_flag *all)
 {
-	char	*ret;
+	size_t	nb;
+	int		index;
 
-	ret = ft_itoa_pointer((size_t)va_arg(all->ap, void *));
-	ft_strcat2(all->buffer, "0x", all);
-	ft_strcat2(all->buffer, ret, all);
-	if (ret)
-		free(ret);
+	nb = va_arg(all->ap, size_t);
+	index = 12;
+	all->buffer[all->buffer_index++] = '0';
+	all->buffer[all->buffer_index++] = 'x';
+	if (nb == 0)
+		all->buffer[all->buffer_index++] = 48;
+	while (index--)
+	{
+		if (nb % 16 <= 9)
+			all->buffer[all->buffer_index + index] = nb % 16 + '0';
+		else
+			all->buffer[all->buffer_index + index] = nb % 16 + 'a' - 10;
+		nb /= 16;
+	}
+	all->buffer_index += 12;
 }
 
 void	get_pourcent(t_flag *all)
@@ -96,9 +110,9 @@ void	get_float(t_flag *all)
 	char *nb;
 
 	if (all->l == 1)
-		nb = ft_ftoa(va_arg(all->ap, long double), all->precision);
+		nb = ft_ftoa(va_arg(all->ap, long double), all);
 	else
-		nb = ft_ftoa(va_arg(all->ap, double), all->precision);
+		nb = ft_ftoa(va_arg(all->ap, double), all);
 	ft_strcat2(all->buffer, nb, all);
 	free(nb);
 }
