@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 18:16:56 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 20:20:27 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char			*ft_itoa_base_signed(long long nb, t_flag *all);
 void			ft_strcat2(char *s1, char *s2, t_flag *all);
 
 void			ft_char_flags(char ret, t_flag *all);
+void			ft_str_flags(char *ret, t_flag *all);
 
 void			get_int(t_flag *flags);
 void			get_int_base(t_flag *flags);

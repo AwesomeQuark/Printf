@@ -6,13 +6,13 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 16:34:59 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 18:22:16 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 20:17:14 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static size_t	ft_size(long long nb, int prec)
+static size_t	ft_size(long long nb, int prec, t_flag *all)
 {
 	size_t ret;
 
@@ -24,6 +24,8 @@ static size_t	ft_size(long long nb, int prec)
 	}
 	if (nb == 0)
 		ret++;
+	all->hash == 1 ? ret++ : 0;
+	all->hash == 1 && all->type != 'o' ? ret++ : 0;
 	while (nb > 0 || prec > 0)
 	{
 		ret++;
@@ -40,7 +42,7 @@ char			*ft_itoa_base_signed(long long nb, t_flag *all)
 
 	if (nb == -2147483648)
 		return (ft_strdup("-2147483648"));
-	size = ft_size(nb, all->precision);
+	size = ft_size(nb, all->precision, all);
 	end = malloc(sizeof(*end) * (size + 1));
 	nb == 0 ? end[0] = '0' : 0;
 	end[size] = '\0';
@@ -50,6 +52,8 @@ char			*ft_itoa_base_signed(long long nb, t_flag *all)
 		nb = nb * -1;
 	}
 	nb == 0 ? end[0] = 48 : 0;
+	all->hash == 1 ? end[--size] = '0' : 0;
+	all->hash == 1 && all->type != 'o' ? end[size--] = 'x' : 0;
 	while (nb > 0 || all->precision > 0)
 	{
 		end[--size] = nb % 10 + '0';

@@ -6,7 +6,7 @@
 #    By: conoel <conoel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:31:30 by conoel            #+#    #+#              #
-#    Updated: 2018/12/21 18:16:14 by conoel           ###   ########.fr        #
+#    Updated: 2018/12/21 20:19:52 by conoel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(NAME): $(OBJ)
 		@echo "Created Lib file ($(NAME)) !"
 
 ./obj/%.o: ./srcs/%.c
-		@gcc -O3 -c $< -o $@ -I$(HEADER)
+		@gcc -Ofast -Wextra -Werror -Wall -c $< -o $@ -I$(HEADER)
 
 clean:
 		@rm -rf ./obj/*.o

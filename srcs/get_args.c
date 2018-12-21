@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 18:17:10 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/21 20:07:28 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	get_int_base(t_flag *all)
 		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
 	while (*ret)
 		all->buffer[all->buffer_index++] = *ret++;
-	size--;
 	while (all->minus == 1 && all->minsize > size++)
 		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
 }
@@ -54,12 +53,11 @@ void	get_int(t_flag *all)
 		ret = ft_itoa_base_signed((int)va_arg(all->ap, unsigned int), all);
 	size = ft_strlen(ret);
 	while (all->minus == 0 && all->minsize > size++)
-		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
+		all->buffer[all->buffer_index++] = all->zero && all->precision < 0 ? '0' : ' ';
 	while (*ret)
 		all->buffer[all->buffer_index++] = *ret++;
-	size--;
 	while (all->minus == 1 && all->minsize > size++)
-		all->buffer[all->buffer_index++] = all->zero && all->precision == -1 ? '0' : ' ';
+		all->buffer[all->buffer_index++] = all->zero && all->precision < 0 ? '0' : ' ';
 }
 
 void	get_pointer(t_flag *all)
