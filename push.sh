@@ -1,4 +1,4 @@
-set /p message = "Type here the push commentary"
-git add *
-git commit -m $(message)
+read -p 'Insert here push commentary :' message
+it add *
+git commit -m $message
 git push
