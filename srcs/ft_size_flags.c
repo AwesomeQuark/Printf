@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/21 18:56:53 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 18:52:48 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/23 20:15:38 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,4 @@ void		ft_str_flags(char *ret, t_flag *all)
 		all->buffer[all->buffer_index++] = ' ';
 		all->minsize--;
 	}
-}
-
-void		print(char *ret, t_flag *all)
-{
-	int size;
-
-	size = ft_strlen(ret);
-	if (all->hash == 1 && (all->type == 'x' && all->type == 'X' && all->type == 'o'))
-		size += all->type == 'x' | all->type == 'X' ? 2 : 1;
-	while (all->minus == 0 && all->minsize > size++)
-		all->buffer[all->buffer_index++] = all->zero && all->precision < 0 ? '0' : ' ';
-	while (*ret)
-		all->buffer[all->buffer_index++] = *ret++;
-	while (all->minus == 1 && all->minsize > size++)
-		all->buffer[all->buffer_index++] = all->zero && all->precision < 0 ? '0' : ' ';
 }

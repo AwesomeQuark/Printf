@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 18:54:35 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/23 21:40:00 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,30 @@
 
 void	get_int_base(t_flag *all)
 {
-	char	*ret;
-
 	if (all->intflags == 1)
-		ret = ft_itoabu((unsigned long)va_arg(all->ap, unsigned long), all);
+		ft_itoabu((unsigned long)va_arg(all->ap, unsigned long), all);
 	else if (all->intflags == 2)
-		ret = ft_itoabu((unsigned long long)va_arg(all->ap, ULL), all);
+		ft_itoabu((unsigned long long)va_arg(all->ap, ULL), all);
 	else if (all->intflags == 3)
-		ret = ft_itoabu((unsigned short)va_arg(all->ap, unsigned int), all);
+		ft_itoabu((unsigned short)va_arg(all->ap, unsigned int), all);
 	else if (all->intflags == 4)
-		ret = ft_itoabu((unsigned char)va_arg(all->ap, unsigned int), all);
+		ft_itoabu((unsigned char)va_arg(all->ap, unsigned int), all);
 	else
-		ret = ft_itoabu(va_arg(all->ap, unsigned int), all);
-	print(ret, all);
+		ft_itoabu(va_arg(all->ap, unsigned int), all);
 }
 
 void	get_int(t_flag *all)
 {
-	char	*ret;
-
 	if (all->intflags == 1)
-		ret = ft_itoa_base_signed((long)va_arg(all->ap, long), all);
+		ft_itoabs((long)va_arg(all->ap, long), all);
 	else if (all->intflags == 2)
-		ret = ft_itoa_base_signed((long long)va_arg(all->ap, long long), all);
+		ft_itoabs((long long)va_arg(all->ap, long long), all);
 	else if (all->intflags == 3)
-		ret = ft_itoa_base_signed((short)va_arg(all->ap, unsigned int), all);
+		ft_itoabs((short)va_arg(all->ap, unsigned int), all);
 	else if (all->intflags == 4)
-		ret = ft_itoa_base_signed((char)va_arg(all->ap, unsigned int), all);
+		ft_itoabs((char)va_arg(all->ap, unsigned int), all);
 	else
-		ret = ft_itoa_base_signed((int)va_arg(all->ap, unsigned int), all);
-	print(ret, all);
+		ft_itoabs((int)va_arg(all->ap, unsigned int), all);
 }
 
 void	get_pointer(t_flag *all)

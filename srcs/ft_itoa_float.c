@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 12:34:16 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/21 18:17:46 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/23 21:43:17 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char				*ft_ftoa(long double num, t_flag *all)
 	nb = ft_pow(num, all->precision);
 	if (nb % 10 >= 5)
 		nb += 10;
-	end = ft_itoa_base_signed(nb, all);
+	end = " ";//ft_itoa_base_signed(nb, all);
 	ft_insertdot(end, all->precision);
 	return (end);
 }
