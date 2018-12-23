@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:44:12 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:57:04 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/24 00:14:58 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	test(int (*f)(const char *str, ...))
 	f(" %-5.-2s empty string bitch\n", "test");
 	f("Octal : %-10.5d\n", 45);*/
 	f("Pointeur : %p\n", nb);
-	f("Integers : %#18.12x\n", 69255, 42);
+	f("Integers : %-10x\n", 5542, 42);
 	f("String : %s %5s %.2s", NULL, "baaaa", "derision");
 }
 

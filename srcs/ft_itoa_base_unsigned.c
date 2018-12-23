@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:54:22 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:56:25 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/24 00:37:51 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,11 @@ void		ft_itoabu(unsigned long long nb, t_flag *all)
 
 	get_base(all->type, &base);
 	size = ft_size(nb, base, all->precision, all);
-	size = size - 1 > all->precision ? size : all->precision;
 	i = all->minsize > size ? all->minsize - 1 : size - 1;
-	while (all->minus == 1 && --all->minsize > size)
+	nb == 0 ? all->hash = 0 : 0;
+	while (all->minus == 1 && --all->minsize >= size)
 		all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
 	nb == 0 && all->precision != 0 ? all->buffer[all->buffer_index + i--] = '0' : 0;
-	all->type == 'o' && all->hash == 1 ? all->buffer[all->buffer_index + i--] = '0' : 0;
 	while (nb > 0 || all->precision > 0)
 	{
 		if (nb % base <= 9)
@@ -61,9 +60,10 @@ void		ft_itoabu(unsigned long long nb, t_flag *all)
 		nb /= base;
 		all->precision--;
 	}
+	all->type == 'o' && all->hash == 1 ? all->buffer[all->buffer_index + i--] = '0' : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? all->buffer[all->buffer_index + i--] = all->type : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? all->buffer[all->buffer_index + i--] = '0' : 0;
-	while (all->minus == 1 && --all->minsize + 1 > size)
+	while (all->minus == 0 && --all->minsize >= size)
 		all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
-	all->buffer_index += ft_strlen(&all->buffer[all->buffer_index + ++i]);
+	all->buffer_index += ft_strlen(&all->buffer[all->buffer_index]);
 }
