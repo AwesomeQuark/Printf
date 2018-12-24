@@ -5,7 +5,7 @@
 
 static void	test(int (*f)(const char *str, ...), int type)
 {
-	int max_val = 1000000;
+	int max_val = 2000000;
 	int i = 2147483647;
 	long l = 2147483647;
 	long long ll = 9223372036854775807;
@@ -43,27 +43,25 @@ int main()
 	time_t time1;
 	time_t time2;
 	time_t time3;
-	time_t time4;
 	float diff1;
 	float diff2;
 
 	time1 = time(NULL);
 	test(printf, 1);
 	time2 = time(NULL);
-	time3 = time(NULL);
 	test(ft_printf, 1);
-	time4 = time(NULL);
-	diff1 = (difftime(time4, time3));
-	diff2 = (difftime(time2, time1));
-	time1 = time(NULL);
+	time3 = time(NULL);
+	diff1 = (difftime(time2, time1));
+	diff2 = (difftime(time3, time2));
+	/*time1 = time(NULL);
 	test(printf, 2);
 	time2 = time(NULL);
-	time3 = time(NULL);
 	test(ft_printf, 2);
-	time4 = time(NULL);
+	time4 = time(NULL);*/
 	printf("\n\n==== FIRST TEST : Simple variables, flags and short calls ====\n");
-	printf("Your function speedrate : %d%%\n", (int)((diff2 * 100) / diff2));
+	printf("Your function speedrate : %d%%\n", (int)((diff1 * 100) / diff2));
+	printf("Exec time original : %d yours : %d", (int)diff1, (int)diff2);
 	printf("\n\n==== SECOND TEST : long long shit and calls to strings ====\n");
-	printf("Your function speedrate : %d%%\n", (int)((difftime(time4, time3) * 100) / difftime(time2, time1)));
+	printf("Your function speedrate : %d%%\n", (int)((difftime(time3, time2) * 100) / difftime(time2, time1)));
 	return (0);
 }

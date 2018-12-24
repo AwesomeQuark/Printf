@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:54:22 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/24 00:37:51 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/24 02:06:47 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int		ft_size(unsigned long long nb, int base, int prec, t_flag *all)
 	size = 0;
 	nb == 0 && (prec != 0  || all->type == 'o') ? size += 1 : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? size += 2 : 0;
+	all->plus == 1 ? size++ : 0;
 	while (nb > 0 || prec > 0)
 	{
 		size += 1;
@@ -63,6 +64,7 @@ void		ft_itoabu(unsigned long long nb, t_flag *all)
 	all->type == 'o' && all->hash == 1 ? all->buffer[all->buffer_index + i--] = '0' : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? all->buffer[all->buffer_index + i--] = all->type : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? all->buffer[all->buffer_index + i--] = '0' : 0;
+	all->plus == 1 ? all->buffer[all->buffer_index + i--] = '+' : 0;
 	while (all->minus == 0 && --all->minsize >= size)
 		all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
 	all->buffer_index += ft_strlen(&all->buffer[all->buffer_index]);
