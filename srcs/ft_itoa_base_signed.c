@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 16:34:59 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/24 00:37:45 by conoel           ###   ########.fr       */
+/*   Updated: 2018/12/24 02:13:49 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ void		ft_itoabs(long long nb, t_flag *all)
 	int 	i;
 
 	size = ft_size(nb, all->precision);
+	all->plus == 1 ? size++ : 0;
 	i = all->minsize > size ? all->minsize - 1 : size - 1;
 	nb == 0 ? all->hash = 0 : 0;
 	while (all->minus == 1 && --all->minsize >= size)
 		all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
-	if (nb < 0)
-	{
-		all->buffer[all->buffer_index] = '-';
-		nb *= -1;
-	}
+	nb >= 0 && all->plus == 1 ? all->buffer[all->buffer_index] = '+' : 0;
 	nb == 0 && all->precision != 0 ? all->buffer[all->buffer_index + i--] = '0' : 0;
+	nb < 0 ? all->buffer[all->buffer_index] = '-' : 0;
+	nb < 0 ? nb *= -1 : 0;
 	while (nb > 0 || all->precision > 0)
 	{
 		all->buffer[all->buffer_index + i--] = nb % 10 + '0';
