@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:40:00 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 12:52:04 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,8 @@ void	get_pourcent(t_flag *all)
 
 void	get_float(t_flag *all)
 {
-	char *nb;
-
 	if (all->l == 1)
-		nb = ft_ftoa(va_arg(all->ap, long double), all);
+		ft_ftoa(va_arg(all->ap, long double), all);
 	else
-		nb = ft_ftoa(va_arg(all->ap, double), all);
-	ft_strcat2(nb, all);
-	free(nb);
+		ft_ftoa(va_arg(all->ap, double), all);
 }

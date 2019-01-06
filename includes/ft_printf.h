@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:39:53 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 14:21:58 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ size_t			ft_strlen(const char *s);
 char			*ft_itoa(int n);
 int				ft_atoi(char *s, t_flag *all);
 
-//itoabu stands for integer to array base unsigned
-//itoabs stands for integer to array base signed
-char			*ft_ftoa(long double num, t_flag *all);
+//itoabu stands for : integer to array base unsigned
+//itoabs stands for : integer to array base signed
+void			ft_ftoa(long double num, t_flag *all);
 void			ft_itoabu(unsigned long long nb, t_flag *all);
 void			ft_itoabs(long long nb, t_flag *all);
 void			ft_strcat2(char *arg, t_flag *all);

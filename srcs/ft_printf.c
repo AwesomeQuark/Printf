@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:43:26 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 12:20:30 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	parse_flags(t_flag *all, char *str)
 		str[I] == 'L' ? all->l = 1 : 0;
 		str[I] == '0' && str[I - 1] != '-' ? all->zero = 1 : 0;
 		str[I] == '-' ? all->minus = 1 : 0;
-		str[I] == '+' ? all->plus = 2 : 0;
+		str[I] == '+' ? all->plus = 1 : 0;
 		str[I] == ' ' ? all->space = 1 : 0;
 		str[I] == '#' ? all->hash = 1 : 0;
 		str[I] >= '1' && str[I] <= '9' ? all->minsize = ft_atoi(str, all) : 0;
@@ -83,7 +83,7 @@ static int	get_next_arg(t_flag *all, char *str)
 	all->type == 'c' ? ft_char_flags((char)va_arg(all->ap, int), all) : 0;
 	all->type == 'p' ? get_pointer(all) : 0;
 	all->type == 's' ? ft_str_flags(va_arg(all->ap, char *), all) : 0;
-	//all->type == 'f' ? get_float(all) : 0;
+	all->type == 'f' ? get_float(all) : 0;
 	all->type == '%' ? get_pourcent(all) : 0;
 	all->type == 0 ? I -= 1 : 0;
 	return (0);

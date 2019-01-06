@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 19:54:22 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/24 03:07:59 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/04 16:51:08 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		ft_size(unsigned long long nb, int base, int prec, t_flag *all)
 	int size;
 
 	size = 0;
-	nb == 0 && (prec != 0  || all->type == 'o') ? size += 1 : 0;
+	nb == 0 && prec != 0 && all->type != 'o' ? size += 1 : 0;
 	(all->type == 'X' || all->type == 'x') && all->hash == 1 ? size += 2 : 0;
 	all->type == 'o' && all->hash == 1 ? size++ : 0;
 	while (nb > 0 || prec > 0)
@@ -48,10 +48,10 @@ void		ft_itoabu(unsigned long long nb, t_flag *all)
 	get_base(all->type, &base);
 	size = ft_size(nb, base, all->precision, all);
 	i = all->minsize > size ? all->minsize - 1 : size - 1;
-	nb == 0 ? all->hash = 0 : 0;
+	nb == 0 && all->type != 'o' ? all->hash = 0 : 0;
 	while (all->minus == 1 && --all->minsize >= size)
 		all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
-	nb == 0 && all->precision != 0 ? all->buffer[all->buffer_index + i--] = '0' : 0;
+	nb == 0 && (all->precision != 0 || all->hash != 0) ? all->buffer[all->buffer_index] = '0' : 0;
 	while (nb > 0 || all->precision > 0)
 	{
 		if (nb % base <= 9)

@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:44:12 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/24 03:08:21 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 14:49:17 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,20 @@ static void	test(int (*f)(const char *str, ...))
 		665);
 	f("Trying to print char A : %c\n", 0);
 	f("Pourcent : %% with flags : %02%\n");
-	f("Float : %lf with precision : %.5f\n", 45.25666666, 88.5);
-	f("zero integers : %.0x %.2x\n", 0, 0);
+	*/f("Float : %lf with precision : %8.2f\n", 45.25666666, 88.5546464645);
+	/*f("zero integers : %.0x %.2x\n", 0, 0);
 	f(" %-5.-2s empty string bitch\n", "test");
 	f("Octal : %-10.5d\n", 45);*/
+	f("Hexa : %x %X\n", 152, 58888);
 	f("Pointeur : %p\n", nb);
-	f("Integers : % d\n", -5542, 42);
-	f("String : %s %5s %.2s", NULL, "baaaa", "derision");
+	f("Integers : %+d %d %05d %2.3de\n", 152, -8464, 5, 0);
+	f("String : %s %5s %.2s\n", NULL, "baaaa", "derision");
 }
 
 int			main(void)
 {
 	printf("\n====  TEST PRINTF ORIGINAL  ====\n");
 	test(&printf);
-	printf("\n====  TEST PRINTF PERSONNEL ====\n");
+	printf("\n\n====  TEST PRINTF PERSONNEL ====\n");
 	test(&ft_printf);
 }

@@ -6,30 +6,23 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 12:34:16 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/23 21:43:17 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 14:49:00 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static char			*ft_insertdot(char *str, int prec)
+static int		ft_size(long long nb)
 {
-	size_t		index;
-	char		tmp;
-	char		tmp2;
+	int size;
 
-	index = ft_strlen(str) - prec;
-	tmp = str[index];
-	str[index] = '.';
-	while (--prec)
+	size = 0;
+	while (nb > 0)
 	{
-		tmp2 = str[++index];
-		str[index] = tmp;
-		tmp = str[++index];
-		str[index] = tmp2;
+		size += 1;
+		nb /= 10;
 	}
-	str[ft_strlen(str) - 1] = '\0';
-	return (str);
+	return (size + 1);
 }
 
 static long long	ft_pow(long double num, int pow)
@@ -39,16 +32,30 @@ static long long	ft_pow(long double num, int pow)
 	return ((long long)num);
 }
 
-char				*ft_ftoa(long double num, t_flag *all)
+void				ft_ftoa(long double num, t_flag *all)
 {
 	long long	nb;
-	char		*end;
+	int			size;
+	int			size_mem;
+	int			point_i;
 
 	all->precision = all->precision < 0 ? 7 : all->precision + 1;
+	point_i = ft_size(num);
 	nb = ft_pow(num, all->precision);
-	if (nb % 10 >= 5)
-		nb += 10;
-	end = " ";//ft_itoa_base_signed(nb, all);
-	ft_insertdot(end, all->precision);
-	return (end);
+	nb % 10 >= 5 ? nb += 10 : 0;
+	nb /= 10;
+	size = ft_size(nb);
+	size = all->minsize > size ? all->minsize : size;
+	size_mem = size;
+	while (all->minus == 1 && --all->minsize >= size)
+		all->buffer[all->buffer_index + size--] = all->zero && all->precision < 0 ? '0' : ' ';
+	while (nb > 0)
+	{
+		all->buffer[all->buffer_index + size--] = nb % 10 + 48;
+		nb /= 10;
+		size == point_i ? all->buffer[all->buffer_index + size--] = '.' : 0;
+	}
+	while (all->minus == 0 && --all->minsize >= size)
+		all->buffer[all->buffer_index + size--] = all->zero && all->precision < 0 ? '0' : ' ';
+	all->buffer_index += size_mem;
 }
