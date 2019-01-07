@@ -6,7 +6,7 @@
 #    By: conoel <conoel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/13 11:31:30 by conoel            #+#    #+#              #
-#    Updated: 2018/12/24 01:27:10 by conoel           ###   ########.fr        #
+#    Updated: 2019/01/07 15:56:29 by conoel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ $(NAME): $(OBJ)
 
 ./obj/%.o: ./srcs/%.c
 		@gcc -Ofast -Wextra -Werror -Wall -c $< -o $@ -I$(HEADER)
+		#@gcc -c $< -o $@ -I$(HEADER)
 
 clean:
 		@rm -rf ./obj/*.o

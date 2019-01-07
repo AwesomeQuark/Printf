@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/06 12:20:30 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/06 21:18:38 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	if_norme(char s, int type)
 		if ((s >= '0' && s <= '9') || s == 'd' || s == 'i' || s == 'o' ||
 	s == 'u' || s == 'x' || s == 'X' || s == 'c' || s == 's' || s == 'p' ||
 	s == 'l' || s == 'h' || s == 'f' || s == '%' || s == '.' || s == '-' ||
-	s == ' ' || s == '+' || s == '#' || s == 'L')
+	s == ' ' || s == '+' || s == '#' || s == 'L' || s == '*')
 			return (1);
 	}
 	if (type == 2)
@@ -68,7 +68,8 @@ static void	parse_flags(t_flag *all, char *str)
 		str[I] == '+' ? all->plus = 1 : 0;
 		str[I] == ' ' ? all->space = 1 : 0;
 		str[I] == '#' ? all->hash = 1 : 0;
-		str[I] >= '1' && str[I] <= '9' ? all->minsize = ft_atoi(str, all) : 0;
+		(str[I] >= '1' && str[I] <= '9') || str[I] == '*' ?
+				all->minsize = ft_atoi(str, all) : 0;
 		str[I] == '.' ? all->precision = ft_atoi(str, all) : 0;
 	}
 }
