@@ -6,11 +6,12 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:44:12 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/07 15:47:08 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/14 17:06:12 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libc.h>
+#include <limits.h>
 #include "includes/ft_printf.h"
 
 static void	test(int (*f)(const char *str, ...))
@@ -21,23 +22,23 @@ static void	test(int (*f)(const char *str, ...))
 	/*f("Pointeur : %p\n", nb);
 	f("String : %s\n", "Brule un bebe");
 	f("Integers : %+5d %i\n", 214648, 42);
-	f("Integers base : %o (octal) %x(hexamin) %X(hexamaj)\n", 6, nb[0],
-		nb[0], nb[0]);
-	f("Integers flags : %ld (l) %lld (ll) %hd (h) %hhd (hh)\n", 666, 666, 666,
-		665);
+	f("Integers base : %o (octal) %x(hexamin) %X(hexamaj)\n", 6, nb[0], nb[0], nb[0]);
+	f("Integers flags : %ld (l) %lld (ll) %hd (h) %hhd (hh)\n", 666, 666, 666, 665);
 	f("Trying to print char A : %c\n", 0);
-	f("Pourcent : %% with flags : %02%\n");
-	*///f("Float : %lf with precision : a%-8fa\n", 45.25666666, 88.55);
+	f("Pourcent : %% with flags : %02%\n");*/
+	f("Float : %lf with precision : a%-8fa\n", 45.25666666, 88.55);
+	f("floats : %8.2f\n", 3.25644);
 	/*f("zero integers : %.0x %.2x\n", 0, 0);
 	f(" %-5.-2s empty string bitch\n", "test");
-	f("Octal : %-10.5d\n", 45);*/
-	//f("Hexa : %x %X\n", 152, 58888);
-	//f("Pointeur : %p\n", nb);
-	f("Integers : %ld|\n", -2147483649, -8464, 10, 5, 256);
-	//f("%03.2d|\n", 0);
-	//f("%0+5d|\n", 42);
-	//f("%05d|\n", -42);
-	//f("String : %s %5s %.2s\n", NULL, "baaaa", "derision");
+	f("Octal : %-10.5d\n", 45);
+	f("Hexa : %x %X\n", 152, 58888);
+	f("Pointeur : %p\n", nb);
+	f("Integers : %lld|\n", LONG_MIN, -8464, 10, 5, 256);
+	f("%03.2d|\n", 0);
+	f("%05d|\n", -42);
+	f("%-05d|\n", 42);
+	f("%d\n", 5623);
+	f("String : %s %5s %.2s\n", NULL, "baaaa", "derision");*/
 }
 
 int			main(void)

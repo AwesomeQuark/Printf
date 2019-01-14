@@ -6,13 +6,18 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/09 10:40:50 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/13 13:47:25 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/14 14:04:21 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-void	*ft_bzero(void *s, size_t n)
+void	ft_bzero(char *s, size_t n)
 {
-	return (ft_memset(s, '\0', n));
+	int i;
+
+	i = 0;
+	while (n--)
+		s[i++] = '\0';
+	return ;
 }

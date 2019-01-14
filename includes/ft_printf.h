@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/06 14:21:58 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/14 14:04:24 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ typedef struct	s_flag
 }				t_flag;
 
 void			*ft_memset(void *s, int c, size_t n);
-void			*ft_bzero(void *s, size_t n);
+void			ft_bzero(char *s, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strdup(const char *s);
 size_t			ft_strlen(const char *s);
 char			*ft_itoa(int n);
 int				ft_atoi(char *s, t_flag *all);
 
-//itoabu stands for : integer to array base unsigned
-//itoabs stands for : integer to array base signed
+/*
+**itoabu stands for : integer to array base unsigned
+**itoabs stands for : integer to array base signed
+*/
 void			ft_ftoa(long double num, t_flag *all);
 void			ft_itoabu(unsigned long long nb, t_flag *all);
 void			ft_itoabs(long long nb, t_flag *all);

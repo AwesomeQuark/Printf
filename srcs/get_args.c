@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 18:10:19 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/06 19:48:22 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/14 15:39:19 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	get_int_base(t_flag *all)
 void	get_int(t_flag *all)
 {
 	if (all->intflags == 1)
-		ft_itoabs((long)va_arg(all->ap, long), all);
+		ft_itoabs((long)va_arg(all->ap, long long), all);
 	else if (all->intflags == 2)
 		ft_itoabs((long long)va_arg(all->ap, long long), all);
 	else if (all->intflags == 3)

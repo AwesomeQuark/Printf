@@ -1,18 +1,18 @@
 /* ************************************************************************** */
-/*	*/
-/*	:::	  ::::::::   */
-/*   ft_itoa_base_signed.c	  :+:	  :+:	:+:   */
-/*	+:+ +:+	 +:+	 */
-/*   By: conoel <conoel@student.42.fr>	  +#+  +:+	   +#+	*/
-/*	+#+#+#+#+#+   +#+	   */
-/*   Created: 2018/12/10 16:34:59 by conoel	#+#	#+#	 */
-/*   Updated: 2019/01/07 13:34:10 by conoel	   ###   ########.fr	   */
-/*	*/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_base_signed.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/07 16:05:58 by conoel            #+#    #+#             */
+/*   Updated: 2019/01/14 15:54:11 by conoel           ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-static int		ft_size(long long nb, int prec)
+static int ft_size(long long nb, int prec)
 {
 	int size;
 
@@ -32,39 +32,49 @@ static int		ft_size(long long nb, int prec)
 	return (size);
 }
 
-void	ft_itoabs(long long nb, t_flag *all)
+static void printer(long long nb, char *tmp, int *i, t_flag *all)
 {
-	int		size;
-	int		nb_mem;
-	int		i;
-	int		j;
-	int		k;
+	long long nb_mem;
+	int prec;
+
+	prec = all->precision;
+	nb_mem = nb;
+	nb < 0 ? nb *= -1 : 0;
+	nb == 0 && all->precision != 0 && all->minsize == 0 ? tmp[(*i)--] = '0' : 0;
+	while (nb > 0 || prec > 0)
+	{
+		tmp[(*i)--] = nb % 10 + '0';
+		nb /= 10;
+		prec--;
+	}
+	all->space ? tmp[0] = ' ' : 0;
+	all->plus && !all->zero ? tmp[*i] = '+' : 0;
+	nb_mem < 0 && !all->zero ? tmp[*i] = '-' : 0;
+	(nb_mem < 0 || all->plus == 1) &&!all->zero ? (*i) -= 1 : 0;
+}
+
+void ft_itoabs(long long nb, t_flag *all)
+{
+	char tmp[all->minsize > ft_size(nb, all->precision) ? all->minsize + 1 : ft_size(nb, all->precision) + 1];
+	int size;
+	long long nb_mem;
+	int i;
+	int j;
 
 	nb_mem = nb;
 	j = all->minsize;
-	k = all->precision;
 	size = ft_size(nb, all->precision);
+	ft_bzero(tmp, all->minsize > size ? all->minsize + 1 : size + 1);
 	((all->space == 1 || all->plus == 1) && nb >= 0) ? size++ : 0;
 	i = all->minsize > size ? all->minsize - 1 : size - 1;
-	nb == 0 && all->precision != 0 && all->minsize != 0 && all->minus ? all->buffer[all->buffer_index + i--] = ' ' : 0;
+	nb == 0 && all->precision != 0 && all->minsize != 0 && all->minus ? tmp[i--] = ' ' : 0;
 	while (all->minus && --j >= size)
-	all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
-	nb < 0 ? nb *= -1 : 0;
-	nb == 0 && all->precision != 0 && all->minsize == 0 ? all->buffer[all->buffer_index + i--] = '0' : 0;
-	while (nb > 0 || k > 0)
-	{
-	all->buffer[all->buffer_index + i--] = nb % 10 + '0';
-	nb /= 10;
-	k--;
-	}
-	all->space ? all->buffer[all->buffer_index] = ' ' : 0;
-	all->plus && !all->zero ? all->buffer[all->buffer_index + i] = '+' : 0;
-	nb_mem < 0 && !all->zero ? all->buffer[all->buffer_index + i] = '-' : 0;
-	(nb_mem < 0 || all->plus == 1) && !all->zero ? i -= 1 : 0;
+		tmp[i--] = all->zero && all->precision < 0 ? '0' : ' ';
+	printer(nb, tmp, &i, all);
 	while (!all->minus && --j >= size)
-	all->buffer[all->buffer_index + i--] = all->zero && all->precision < 0 ? '0' : ' ';
-	nb == 0 && all->precision != 0 && all->minsize != 0 && !all->minus ? all->buffer[all->buffer_index + i--] = ' ' : 0;
-	all->plus && all->zero ? all->buffer[all->buffer_index] = '+' : 0;
-	nb_mem < 0 && all->zero ? all->buffer[all->buffer_index] = '-' : 0;
-	all->buffer_index += ft_strlen(&all->buffer[all->buffer_index]);
+		tmp[i--] = all->zero && all->precision < 0 ? '0' : ' ';
+	nb == 0 && all->precision != 0 && all->minsize != 0 && !all->minus ? tmp[i--] = ' ' : 0;
+	all->plus && all->zero ? tmp[0] = '+' : 0;
+	nb_mem < 0 && all->zero ? tmp[0] = '-' : 0;
+	ft_strcat2(tmp, all);
 }
