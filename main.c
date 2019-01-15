@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/20 17:44:12 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/14 17:06:12 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/14 21:04:56 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	test(int (*f)(const char *str, ...))
 	f("Trying to print char A : %c\n", 0);
 	f("Pourcent : %% with flags : %02%\n");*/
 	f("Float : %lf with precision : a%-8fa\n", 45.25666666, 88.55);
-	f("floats : %8.2f\n", 3.25644);
+	f("floats : %08.2f\n", 3.25644);
 	/*f("zero integers : %.0x %.2x\n", 0, 0);
 	f(" %-5.-2s empty string bitch\n", "test");
 	f("Octal : %-10.5d\n", 45);
