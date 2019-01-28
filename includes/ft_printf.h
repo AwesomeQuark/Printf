@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/14 14:04:24 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/26 21:58:14 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdlib.h>
 # define BUFF 2048
 # define I all->str_index
-# define ULL unsigned long long
 
 /*
 **	Concernant le "intflags"
@@ -29,8 +28,9 @@
 **	3 = h
 **	4 = hh
 **
-**	Pour le "minus"
-** 	Si '-' est présentm alors minus = 1, sinon 0 :D
+**	Pour les autres flags
+**	Si 1, alors present, sinon 0 = absent :D
+**	Cas particulier : precision (-1 si absent)
 */
 
 typedef struct	s_flag
@@ -39,6 +39,7 @@ typedef struct	s_flag
 	va_list	ap;
 	size_t	buffer_index;
 	size_t	str_index;
+	int		total_size;
 	char	type;
 	char	intflags;
 	int		precision;
@@ -66,17 +67,19 @@ int				ft_atoi(char *s, t_flag *all);
 void			ft_ftoa(long double num, t_flag *all);
 void			ft_itoabu(unsigned long long nb, t_flag *all);
 void			ft_itoabs(long long nb, t_flag *all);
-void			ft_strcat2(char *arg, t_flag *all);
-
-void			ft_char_flags(char ret, t_flag *all);
-void			ft_str_flags(char *ret, t_flag *all);
+void			ft_ptoa(size_t nb, t_flag *flags);
+void			char_flags(char ret, t_flag *all);
+void			str_flags(char *ret, t_flag *all);
 void			print(char *ret, t_flag *all);
+void			ft_strcat2(char *arg, t_flag *all);
+void			ft_charcat2(char arg, t_flag *all);
+void			ft_strlcat2(char *arg, t_flag *all, size_t size);
 
 void			get_int(t_flag *flags);
 void			get_int_base(t_flag *flags);
-void			get_pointer(t_flag *flags);
 void			get_pourcent(t_flag *flags);
 void			get_float(t_flag *all);
+void			get_nothing(t_flag *all);
 
 int				ft_printf(const char *str, ...);
 
