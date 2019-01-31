@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 09:15:05 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/28 15:05:11 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/30 12:16:41 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ static int	if_norme(char s, int type)
 	s == 'u' || s == 'x' || s == 'X' || s == 'c' || s == 's' || s == 'p' ||
 	s == 'l' || s == 'h' || s == 'f' || s == '%' || s == '.' || s == '-' ||
 	s == ' ' || s == '+' || s == '#' || s == 'L' || s == '*' || s == 'b' ||
-	s == 'O' || s == 'U' || s == 'F')
+	s == 'O' || s == 'U' || s == 'F' || s == 'm' || s == 'n')
 			return (1);
 	}
 	if (type == 2)
 	{
 		if (s == 'd' || s == 'i' || s == 'o' || s == 'u' || s == 'x' ||
 		s == 'X' || s == 'c' || s == 's' || s == 'p' || s == 'f' || s == '%' ||
-		s == 'b' || s == 'O' || s == 'U' || s == 'F')
+		s == 'b' || s == 'O' || s == 'U' || s == 'F' || s == 'm' || s == 'n')
 			return (1);
 	}
 	return (0);
@@ -94,6 +94,8 @@ static int	get_next_arg(t_flag *all, char *str)
 	all->type == 's' ? str_flags(va_arg(all->ap, char *), all) : 0;
 	all->type == 'f' || all->type == 'F' ? get_float(all) : 0;
 	all->type == '%' ? char_flags('%', all) : 0;
+	all->type == 'm' ? print_errno(all) : 0;
+	all->type == 'n' ? get_charwriten(all) : 0;
 	return (0);
 }
 

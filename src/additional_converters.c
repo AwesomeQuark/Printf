@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   additional_converters.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 10:46:18 by conoel            #+#    #+#             */
-/*   Updated: 2018/12/13 12:28:35 by conoel           ###   ########.fr       */
+/*   Created: 2019/01/30 11:43:59 by conoel            #+#    #+#             */
+/*   Updated: 2019/01/30 12:51:24 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 
-size_t	ft_strlen(const char *s)
+void	print_errno(t_flag *all)
 {
-	int i;
+	char	*tmp;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	tmp = strerror(errno);
+	ft_strcat2(tmp, all);
+	all->space = 0;
+}
+
+void	get_charwriten(t_flag *all)
+{
+	int		*ptr;
+
+	ptr = va_arg(all->ap, int *);
+	*ptr = all->buffer_index;
 }

@@ -6,7 +6,7 @@
 #    By: conoel <conoel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/10 21:14:13 by conoel            #+#    #+#              #
-#    Updated: 2019/01/25 18:48:01 by conoel           ###   ########.fr        #
+#    Updated: 2019/01/30 12:52:33 by conoel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = libftprintf.a
 
 HEADER = ./includes/ft_printf.h
 
-SRC_NAME = ft_printf.c get_args.c ft_size_flags.c\
+SRC_NAME = ft_printf.c get_args.c ft_size_flags.c additional_converters.c \
 ft_ftoa.c ft_itoa_base_unsigned.c ft_itoa_base_signed.c ft_ptoa.c\
 ft_bzero.c ft_strcmp.c ft_strlen.c ft_strcat2.c ft_memset.c ft_strdup.c ft_atoi.c
 
@@ -53,3 +53,4 @@ clean:
 fclean: clean
 	@rm -f $(NAME)
 	@echo "               ~ --- ~\n*< \033[36mEverything has been removed.\033[0m >*\n               ~ --- ~"
+

@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 23:07:50 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/28 14:55:30 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/30 12:14:21 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdarg.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <strings.h>
+# include <errno.h>
 # define BUFF 2048
 # define I all->str_index
 
@@ -59,6 +61,7 @@ char			*ft_strdup(const char *s);
 size_t			ft_strlen(const char *s);
 char			*ft_itoa(int n);
 int				ft_atoi(char *s, t_flag *all);
+void			ft_strrev(char *str);
 
 /*
 **itoabu stands for : integer to array base unsigned
@@ -80,6 +83,8 @@ void			get_int_base(t_flag *flags);
 void			get_pourcent(t_flag *flags);
 void			get_float(t_flag *all);
 void			get_nothing(t_flag *all);
+void			print_errno(t_flag *all);
+void			get_charwriten(t_flag *all);
 
 int				ft_printf(const char *str, ...);
 

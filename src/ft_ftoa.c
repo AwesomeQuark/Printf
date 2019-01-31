@@ -6,7 +6,7 @@
 /*   By: conoel <conoel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/17 12:34:16 by conoel            #+#    #+#             */
-/*   Updated: 2019/01/28 12:53:14 by conoel           ###   ########.fr       */
+/*   Updated: 2019/01/30 12:35:54 by conoel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int			get_size(long long nb, t_flag *all)
 	size = 0;
 	all->plus && nb >= 0 ? size++ : 0;
 	all->space && nb >= 0 ? size++ : 0;
+	prec == 1 && nb != 0 ? size-- : 0;
 	if (nb < 0)
 	{
 		size++;
@@ -75,7 +76,7 @@ static void			printer(t_flag *all, long long nb, int size, int p_i)
 	nb == 0 ? if_nbzero(tmp, all, &size) : 0;
 	while (nb > 0)
 	{
-		size == p_i ? tmp[--size] = '.' : 0;
+		size == p_i && all->precision != 1 ? tmp[--size] = '.' : 0;
 		size + 1 == p_i ? p_i = 0 : 0;
 		tmp[--size] = nb % 10 + 48;
 		nb /= 10;
